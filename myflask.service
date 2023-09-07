@@ -1,0 +1,14 @@
+ #cat /etc/systemd/system/myflask.service
+[Unit]
+Description=Gunicorn instance to serve myproject
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/root/WMS
+Environment="PATH=/root/WMS/venv/bin"
+ExecStart=/root/WMS/venv/bin/gunicorn -w 4 --preload -b 127.0.0.1:8080 app:app
+
+[Install]
+WantedBy=multi-user.target
